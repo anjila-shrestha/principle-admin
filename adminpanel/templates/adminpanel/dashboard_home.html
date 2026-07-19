@@ -1,0 +1,28 @@
+{% extends 'adminpanel/base.html' %}
+{% block content %}
+<h1 class="page-title">Principal Dashboard</h1>
+<p class="subtitle">Welcome back. Here's what's happening across campus.</p>
+
+<div class="stat-grid">
+    <div class="stat-card">
+        <div class="stat-label">Total Complaints</div>
+        <div class="stat-value">{{ total }}</div>
+        <div class="stat-icon blue">📢</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Pending</div>
+        <div class="stat-value">{{ pending }}</div>
+        <div class="stat-icon amber">⏳</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">In Progress</div>
+        <div class="stat-value">{{ in_progress }}</div>
+        <div class="stat-icon blue">⚙️</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Resolved</div>
+        <div class="stat-value">{{ resolved }}</div>
+        <div class="stat-icon green">✅</div>
+    </div>
+</div>
+{% endblock %}

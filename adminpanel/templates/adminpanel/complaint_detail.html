@@ -1,0 +1,40 @@
+{% extends 'adminpanel/base.html' %}
+{% block content %}
+<a href="{% url 'all_complaints' %}" style="font-size:13px; color:var(--blue); display:inline-block; margin-bottom:16px;">← Back to all complaints</a>
+
+<h1 class="page-title">{{ complaint.title }}</h1>
+<p class="subtitle">{{ complaint.id }}</p>
+
+<div class="card">
+    <div class="detail-grid">
+        <div>
+            <div class="info-label">Category</div>
+            <div class="info-value">{{ complaint.category }}</div>
+        </div>
+        <div>
+            <div class="info-label">Department</div>
+            <div class="info-value">{{ complaint.department }}</div>
+        </div>
+        <div>
+            <div class="info-label">Status</div>
+            <div class="info-value"><span class="badge {{ complaint.status|slugify }}">{{ complaint.status }}</span></div>
+        </div>
+        <div>
+            <div class="info-label">Date Submitted</div>
+            <div class="info-value">{{ complaint.date }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="info-label" style="margin-bottom:10px;">Student Identity</div>
+    {% if is_revealed %}
+        <div class="info-value">✅ {{ complaint.identity.name }} — {{ complaint.identity.email }}</div>
+    {% else %}
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="color:var(--muted); font-size:14px;">Hidden — anonymous by default.</span>
+            <a href="{% url 'reveal_identity' complaint.id %}" class="btn btn-outline">Reveal Identity</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'adminpanel/base.html' %}
+{% block content %}
+<h1 class="page-title">Reports</h1>
+<p class="subtitle">Generated on {{ generated_on }}</p>
+
+<div class="stat-grid">
+    <div class="stat-card">
+        <div class="stat-label">Total Complaints</div>
+        <div class="stat-value">{{ total }}</div>
+        <div class="stat-icon blue">📢</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Resolved</div>
+        <div class="stat-value">{{ resolved }}</div>
+        <div class="stat-icon green">✅</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Pending</div>
+        <div class="stat-value">{{ pending }}</div>
+        <div class="stat-icon amber">⏳</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Resolution Rate</div>
+        <div class="stat-value">{{ resolution_rate }}%</div>
+        <div class="stat-icon green">📈</div>
+    </div>
+</div>
+
+<div class="card">
+    <h3 style="margin-top:0;">By Category</h3>
+    {% for row in category_data %}
+    <div style="margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;">
+            <span>{{ row.category }}</span>
+            <span style="color:var(--muted);">{{ row.count }} ({{ row.percent }}%)</span>
+        </div>
+        <div style="background:#F1F2F5; border-radius:999px; height:8px; overflow:hidden;">
+            <div style="background:var(--blue); width:{{ row.percent }}%; height:100%;"></div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<a href="{% url 'export_csv' %}" class="btn btn-primary">⬇ Download CSV Report</a>
+{% endblock %}

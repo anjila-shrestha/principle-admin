@@ -1,0 +1,27 @@
+{% extends 'adminpanel/base.html' %}
+{% block content %}
+<a href="{% url 'complaint_detail' complaint.id %}" style="font-size:13px; color:var(--blue); display:inline-block; margin-bottom:16px;">← Cancel</a>
+
+<h1 class="page-title">Reveal Identity</h1>
+<p class="subtitle">{{ complaint.id }} — {{ complaint.title }}</p>
+
+<div class="card" style="max-width:520px;">
+    <div class="warning-box">
+        ⚠️ This bypasses the platform's anonymity guarantee for this complaint. This action is logged and visible in the audit trail.
+    </div>
+
+    {% if error %}
+    <div style="color:#C0392B; font-size:13px; margin-bottom:12px;">{{ error }}</div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <label class="info-label" style="display:block; margin-bottom:6px;">Reason for revealing identity (min 20 characters)</label>
+        <textarea name="reason" rows="4" class="form-textarea" placeholder="e.g. Repeated false complaints suspected, need to verify claimant..."></textarea>
+        <div style="margin-top:16px; display:flex; gap:10px;">
+            <button type="submit" class="btn btn-primary">Confirm Reveal</button>
+            <a href="{% url 'complaint_detail' complaint.id %}" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

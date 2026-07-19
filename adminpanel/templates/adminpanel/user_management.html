@@ -1,0 +1,24 @@
+{% extends 'adminpanel/base.html' %}
+{% block content %}
+<h1 class="page-title">User Management</h1>
+<p class="subtitle">Department staff and admin accounts.</p>
+
+<div class="card">
+    <table class="data-table">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+        </tr>
+        {% for u in users %}
+        <tr>
+            <td>{{ u.name }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.role }}</td>
+            <td><span class="badge {{ u.status|lower }}">{{ u.status }}</span></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

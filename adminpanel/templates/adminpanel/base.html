@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student's Voice — Principal Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'adminpanel/style.css' %}">
+</head>
+
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">📢 Student's Voice</div>
+            <nav>
+                <a href="{% url 'dashboard_home' %}"
+                    class="{% if request.resolver_match.url_name == 'dashboard_home' %}active{% endif %}">Dashboard</a>
+                <a href="{% url 'all_complaints' %}"
+                    class="{% if request.resolver_match.url_name == 'all_complaints' %}active{% endif %}">All
+                    Complaints</a>
+                <a href="{% url 'analytics' %}"
+                    class="{% if request.resolver_match.url_name == 'analytics' %}active{% endif %}">Analytics</a>
+                <a href="{% url 'user_management' %}"
+                    class="{% if request.resolver_match.url_name == 'user_management' %}active{% endif %}">User
+                    Management</a>
+                <a href="{% url 'reports' %}"
+                    class="{% if request.resolver_match.url_name == 'reports' %}active{% endif %}">Reports</a>
+                <a href="{% url 'audit_log' %}"
+                    class="{% if request.resolver_match.url_name == 'audit_log' %}active{% endif %}">Audit Log</a>
+            </nav>
+        </aside>
+
+        <div class="main">
+            <div class="topbar">
+                <span class="brand-title">Principal Dashboard</span>
+                <div class="avatar">P</div>
+            </div>
+            <div class="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

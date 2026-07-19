@@ -1,0 +1,61 @@
+{% extends 'adminpanel/base.html' %}
+{% block content %}
+<h1 class="page-title">All Complaints</h1>
+<p class="subtitle">Every complaint submitted across all departments.</p>
+
+<div class="card">
+    <form method="get" style="display:flex; gap:12px; align-items:end; flex-wrap:wrap;">
+        <div style="flex:1; min-width:200px;">
+            <label style="font-size:12px; color:#8A93A6; display:block; margin-bottom:6px;">Search Keywords</label>
+            <input type="text" name="q" value="{{ search }}" placeholder="Search by complaint title..."
+                style="width:100%; padding:9px 12px; border:1px solid var(--border); border-radius:8px; font-size:14px;">
+        </div>
+        <div>
+            <label style="font-size:12px; color:#8A93A6; display:block; margin-bottom:6px;">Filter by Status</label>
+            <select name="status"
+                style="padding:9px 12px; border:1px solid var(--border); border-radius:8px; font-size:14px;">
+                <option value="" {% if not status_filter %}selected{% endif %}>All Statuses</option>
+                <option value="Pending" {% if status_filter == 'Pending' %}selected{% endif %}>Pending</option>
+                <option value="In Progress" {% if status_filter == 'In Progress' %}selected{% endif %}>In Progress
+                </option>
+                <option value="Resolved" {% if status_filter == 'Resolved' %}selected{% endif %}>Resolved</option>
+                <option value="Rejected" {% if status_filter == 'Rejected' %}selected{% endif %}>Rejected</option>
+            </select>
+        </div>
+        <div>
+            <label style="font-size:12px; color:#8A93A6; display:block; margin-bottom:6px;">Sort Order</label>
+            <select name="sort"
+                style="padding:9px 12px; border:1px solid var(--border); border-radius:8px; font-size:14px;">
+                <option value="newest" {% if sort_order == 'newest' %}selected{% endif %}>Newest First</option>
+                <option value="oldest" {% if sort_order == 'oldest' %}selected{% endif %}>Oldest First</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+</div>
+
+<div class="card">
+    <table class="data-table">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Department</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+        {% for c in complaints %}
+        <tr>
+            <td>{{ c.id }}</td>
+            <td>{{ c.title }}</td>
+            <td>{{ c.category }}</td>
+            <td>{{ c.department }}</td>
+            <td><span class="badge {{ c.status|slugify }}">{{ c.status }}</span></td>
+            <td>{{ c.date }}</td>
+            <td><a href="{% url 'complaint_detail' c.id %}" class="btn btn-outline">View Details</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
